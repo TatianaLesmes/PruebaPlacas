@@ -33,19 +33,31 @@ def verificar_placa():
         resultado.set("La primera letra de la placa no corresponde a una provincia válida.")
         return
 
-    # Validar la placa según los tipos
-    if placa[1] in letras_particular:
-        provincia_letra = placa[0]
-        provincia = [prov for prov, letra in provincias.items() if letra == provincia_letra][0]
-        resultado.set(f"La placa {placa} es de un vehículo Particular de la provincia {provincia}.")
-    elif placa[1] in letras_servicio_publico:
-        provincia_letra = placa[0]
-        provincia = [prov for prov, letra in provincias.items() if letra == provincia_letra][0]
-        resultado.set(f"La placa {placa} es de un vehículo de Servicio público de la provincia {provincia}.")
-    elif re.match(expresion_moto, placa):
-        provincia_letra = placa[0]
-        provincia = [prov for prov, letra in provincias.items() if letra == provincia_letra][0]
-        resultado.set(f"La placa {placa} es de una Moto de la provincia {provincia}.")
+    # Validar placas de Carros particulares y Servicio Público con guión y longitud de 8 caracteres
+    if len(placa) == 8 and '-' in placa:
+        letras, numeros = placa.split('-')
+        if len(letras) == 3 and len(numeros) == 4 and letras.isalpha() and numeros.isdigit():
+            if placa[1] in letras_particular:
+                provincia = [prov for prov, letra in provincias.items() if letra == placa[0]][0]
+                resultado.set(f"La placa {placa} es de un vehículo Particular de la provincia {provincia} de Ecuador")
+            elif placa[1] in letras_servicio_publico:
+                provincia = [prov for prov, letra in provincias.items() if letra == placa[0]][0]
+                resultado.set(f"La placa {placa} es de un vehículo de Servicio Público de la provincia {provincia} de Ecuador")
+            else:
+                resultado.set("La placa tiene formato incorrecto para Carro Particular o Servicio Público.")
+        else:
+            resultado.set("Formato incorrecto: Verifique que tenga 3 letras, un guion y 4 números.")
+        return
+
+    # Validar placa de moto con longitud de 6 caracteres y sin guión
+    elif len(placa) == 6 and '-' not in placa:
+        if re.match(expresion_moto, placa):
+            provincia = [prov for prov, letra in provincias.items() if letra == placa[0]][0]
+            resultado.set(f"La placa {placa} es de una Moto de la provincia {provincia} de Ecuador")
+        else:
+            resultado.set("Formato incorrecto para Moto: Verifique que tenga 2 letras, 3 números y 1 letra final.")
+        return
+
     else:
         resultado.set("La placa no es válida según las reglas establecidas.")
 
