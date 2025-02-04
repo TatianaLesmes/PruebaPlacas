@@ -9,6 +9,7 @@ provincias = {
     'Tungurahua': 'T', 'Cañar': 'U', 'Morona Santiago': 'V', 'Galápagos': 'W', 'Cotopaxi': 'X', 'Santa Elena': 'Y', 'Zamora Chinchipe': 'Z'
 }
 
+
 # Definir la validación de letras según tipo de vehículo
 # Vehículo Particular: segunda letra es una letra entre B y Y, EXCEPTO algunas letras específicas
 letras_particular = set("BCDFGHIJKLNOPQRSTVWY")

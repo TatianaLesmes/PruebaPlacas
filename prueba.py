@@ -2,6 +2,7 @@ import re
 import tkinter as tk
 from tkinter import messagebox
 
+#Yennyfer Lesmes
 # Diccionario de patrones para placas en Colombia
 patrones_colombia = {
     'particular': re.compile(r"^[A-Z]{3}\s?\d{3}$"),   # Ejemplo: ABC 123 o ABC123
